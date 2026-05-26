@@ -5,11 +5,16 @@ The system has a secure admin login, an interactive dashboard, and full CRUD sup
 
 How to run
 1.Install XAMPP, WAMP, or MAMP (any local PHP + MySQL server).
+
 2.Copy this folder into the server's web root:
 XAMPP / MAMP: htdocs/student-result-management-system
+
 3.Start Apache and MySQL from the control panel.
+
 4.Open phpMyAdmin, create a database called srms, and import database/sql.sql.
+
 5.If your MySQL has a different username or password, update them in dbcon.php (default is host localhost, user root, no password).
+
 6.Open in browser:
 Home: http://localhost/student-result-management-system/index.php
 Admin login: http://localhost/student-result-management-system/login.php
