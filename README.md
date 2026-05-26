@@ -1,21 +1,17 @@
- # Student Result Management System
- 1.Description:
-This project is a web-based Student Result Management System that allows easy management of student records and exam results. It helps in storing, updating, and viewing student performance in a structured way.
+**Student Result Management System**
+A web-based system to manage student marks and academic records. Built with PHP, MySQL, HTML, CSS, and JavaScript.
 
-2.Features:
-- Add student details
-- Update student records
-- View student results
-- Search student information
-- Simple and user-friendly interface
+The system has a secure admin login, an interactive dashboard, and full CRUD support for adding, updating, and deleting student data and marks. Students can look up their results by entering their class and roll number, and the system automatically calculates totals, GPA, and letter grades based on the Nepal grading system.
 
-3.Frontend: HTML, CSS, JavaScript  
-Backend: PHP  
-Database: MySQL  
-
-4. Purpose:
-To simplify the process of managing student result data digitally instead of manual record keeping.
-
-Academic / Collaborative project developed using Git and GitHub.
+How to run
+Install XAMPP, WAMP, or MAMP (any local PHP + MySQL server).
+Copy this folder into the server's web root:
+XAMPP / MAMP: htdocs/student-result-management-system
+Start Apache and MySQL from the control panel.
+Open phpMyAdmin, create a database called srms, and import database/sql.sql.
+If your MySQL has a different username or password, update them in dbcon.php (default is host localhost, user root, no password).
+Open in browser:
+Home: http://localhost/student-result-management-system/index.php
+Admin login: http://localhost/student-result-management-system/login.php
 
 
