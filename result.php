@@ -1,7 +1,19 @@
 <?php
-if (isset($_POST['submit'])) {
 
+// ===== PREVENT CACHING =====
+header("Cache-Control: no-store, no-cache, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
+// ===========================
+
+if (isset($_POST['submit'])){
     include('dbcon.php');
+    
+
+
+
+
+
 
     $class = $_POST['class'];
     $rollno = $_POST['rollno'];
@@ -14,6 +26,22 @@ if (isset($_POST['submit'])) {
 
     if (mysqli_num_rows($run) > 0) {
         $data = mysqli_fetch_assoc($run);
+
+        // -------- Verify password --------
+        $password = $_POST['password'];
+        $stored   = $data['password'];
+
+        // Accept hashed passwords (password_verify) OR old plain-text ones.
+        $passwordOk = password_verify($password, $stored) || hash_equals((string)$stored, (string)$password);
+
+        if (!$passwordOk) {
+            echo "<script>
+                    alert('Wrong password. Please try again.');
+                    window.location.href='index.php';
+                  </script>";
+            exit;
+        }
+        // ---------------------------------
         ?>
 
         <html>
@@ -23,13 +51,47 @@ if (isset($_POST['submit'])) {
             <link href="https://fonts.googleapis.com/css?family=Flamenco" rel="stylesheet">
 
         </head>
+        <script>
+            // ===== HOME button: clear & replace history =====
+            function goHome() {
+                sessionStorage.clear();
+                localStorage.clear();
+                window.location.replace('index.php');
+            }
+
+            // ===== LOGOUT button: clear & replace history =====
+            function logoutStudent() {
+                sessionStorage.clear();
+                localStorage.clear();
+                window.location.replace('index.php');
+            }
+
+            // ===== When user navigates AWAY: clear everything =====
+            window.addEventListener('pagehide', function() {
+                sessionStorage.clear();
+                document.querySelectorAll('input').forEach(i => {
+                    if (i.type !== 'submit') i.value = '';
+                });
+            });
+
+            // ===== CRITICAL: defeat browser bfcache =====
+            // If browser tries to restore this page via back button,
+            // immediately redirect to login so the data is never shown.
+            window.addEventListener('pageshow', function(event) {
+                if (event.persisted) {
+                    window.location.replace('index.php');
+                }
+            });
+        </script>
         <body>
         <header>
             <nav>
                 <div class="row clearfix">
                     <ul class="main-nav" animate slideInDown>
-                        <li><a href="index.php"><b>HOME</b></a></li>
+                        
+                        <li><a href="#" onclick="goHome(); return false;"><b>HOME</b></a></li>
                         <li><a href="login.php"><b>ADMIN LOGIN</b></a></li>
+                        <li><a href="#" onclick="logoutStudent(); return false;" style="color:#e74c3c;"><b> LOGOUT</b></a></li>
                     </ul>
                 </div>
             </nav>

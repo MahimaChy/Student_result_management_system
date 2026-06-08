@@ -1,15 +1,32 @@
 <?php
 session_start();
+
+header("Cache-Control: no-store, no-cache, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
+
+
+$timeout_duration = 120;
+if (isset($_SESSION['last_activity']) &&
+    (time() - $_SESSION['last_activity']) > $timeout_duration) {
+    $_SESSION = array();
+    session_destroy();
+    header('Location: ../login.php');
+    exit();
+}
+$_SESSION['last_activity'] = time();
 				
-				if(isset($_SESSION['uid']))
-				{
-					echo "";					
-				}
-				else
-				{
-					header('location: ../login.php');
-				}
-				
+
+if(isset($_SESSION['uid']))
+	{
+		echo "";
+		}
+		else
+		{
+			header('location: ../login.php');
+			}
+
+
 ?> 
 <html>
 <head>
@@ -26,7 +43,9 @@ session_start();
         <li><a href="addmark.php">Add Marks </a></li>
         <li><a href="updatemark.php">Update </a><li>
         <li><a href="deleteform.php">Delete </a></li>
-       
+        <li><a href="allresults.php">All Results </a></li>
+        <li><a href="resetpassword.php">Reset Password </a></li>
+
         </ul>
 
         <a href="logout.php" class="btn">logout</a>

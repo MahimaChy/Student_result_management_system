@@ -1,4 +1,20 @@
 <?php
+session_start();
+
+header("Cache-Control: no-store, no-cache, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
+				
+
+				if(isset($_SESSION['uid']))
+				{
+					echo "";
+				}
+				else
+				{
+					header('location: ../login.php');
+                    exit();
+				}
 if(isset($_POST['submit']))
 {
 include('../dbcon.php');

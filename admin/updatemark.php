@@ -1,14 +1,22 @@
 <?php
 session_start();
+
+header("Cache-Control: no-store, no-cache, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
 				
+
 				if(isset($_SESSION['uid']))
 				{
-					echo "";					
+					echo "";
 				}
 				else
 				{
 					header('location: ../login.php');
+          exit();
+
 				}
+			
 				
 ?>
 <html>

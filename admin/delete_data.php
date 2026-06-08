@@ -1,7 +1,25 @@
 <?php
+session_start();
+
+header("Cache-Control: no-store, no-cache, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
+				
+
+				if(isset($_SESSION['uid']))
+				{
+					echo "";
+				}
+				else
+				{
+					header('location: ../login.php');
+                    exit();
+				}
+
+				
 
 include('../dbcon.php');
-    $rollno=$_REQUEST['sid']; 
+    $rollno=$_REQUEST['sid'];
     
     $sql1="DELETE FROM `user_mark` WHERE `rollno`='$rollno';";
 
